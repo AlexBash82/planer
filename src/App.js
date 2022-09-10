@@ -2,26 +2,29 @@ import './App.css'
 import Calendar from './Components/Calendar'
 
 function App() {
-  const week = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб']
-  const month = [
-    'дек',
-    'янв',
-    'фев',
-    'мар',
-    'апр',
-    'май',
-    'инь',
-    'иль',
-    'авг',
-    'сен',
-    'окт',
-    'ноя',
-  ]
-  const nowDate = new Date()
-  const currentMonth = nowDate.getMonth() + 1
-  const currentYear = nowDate.getFullYear()
-  const currentDate = nowDate.getDate()
-  const currentDay = nowDate.getDay()
+  const startDate = new Date()
+  let period = 220
+
+  // const week = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб']
+  // const month = [
+  //   'дек',
+  //   'янв',
+  //   'фев',
+  //   'мар',
+  //   'апр',
+  //   'май',
+  //   'инь',
+  //   'иль',
+  //   'авг',
+  //   'сен',
+  //   'окт',
+  //   'ноя',
+  // ]
+  // const nowDate = new Date()
+  // const currentMonth = nowDate.getMonth() + 1
+  // const currentYear = nowDate.getFullYear()
+  // const currentDate = nowDate.getDate()
+  // const currentDay = nowDate.getDay()
 
   // const d =
   // console.log(d)
@@ -31,11 +34,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Сегодня - год: '{currentYear}', месяц: '{month[currentMonth]}' число:
-          '{currentDate}' и день '{week[currentDay]}'
-        </p>
-        <Calendar />
+        <Calendar startDate={startDate} period={period} />
         <p>
           {/* "Алгоритм:
 

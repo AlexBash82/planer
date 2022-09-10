@@ -1,16 +1,34 @@
 import React from 'react'
 import Year from './Year'
 
-export default function calendar() {
-  //сколько дней до конца года, что бы решить один год создавать или два
-  const nowDate = new Date(2022, 11, 21, 20)
-  const currentYear = nowDate.getFullYear()
-  const endDate = new Date(currentYear + 1, 0)
-  const diffTime = endDate.getTime() - nowDate.getTime()
-  const diffDays = Math.round(diffTime / 86400000)
-  let years = [currentYear]
-  if (diffDays <= 27) {
-    years.push(currentYear + 1)
+export default function calendar({ startDate, period }) {
+  let years = getYear(startDate, period)
+
+  function getYear(date, period) {
+    let result = period
+    let startY = date.getFullYear()
+    let startM = date.getMonth()
+    let startD = date.getDate()
+    let daysInYear
+    let yearsArr = []
+
+    while (result > 0) {
+      let start = new Date(startY, startM, startD)
+      let end = new Date(startY + 1, 0)
+      let inYear = end.getTime() - start.getTime()
+      daysInYear = Math.round(inYear / 86400000)
+      if (result > daysInYear) {
+        yearsArr.push([startY, daysInYear])
+        result -= daysInYear
+        startY += 1
+        startM = 0
+        startD = 1
+      } else {
+        yearsArr.push([startY, result])
+        result = 0
+      }
+    }
+    return yearsArr
   }
 
   return (
@@ -18,10 +36,10 @@ export default function calendar() {
       {years.map((item) => {
         return (
           <Year
-            key={item}
-            diffDays={diffDays}
-            year={item}
-            currentYear={currentYear}
+            key={item[0]}
+            year={item[0]}
+            startDate={startDate}
+            days={item[1]}
           />
         )
       })}
